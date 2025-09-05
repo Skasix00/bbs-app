@@ -12,7 +12,7 @@ export default function Home() {
 
   const [showDetail, setShowDetail] = useState(null);
 
-  const API = '/api';
+  const API = process.env.NODE_ENV == 'development' ? 'http://localhost:5050' : '/api';
 
   useEffect(() => {
     const saved = localStorage.getItem('bs-user');
