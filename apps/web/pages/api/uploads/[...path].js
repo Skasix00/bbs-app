@@ -3,6 +3,8 @@ export default async function handler(req, res) {
   const path = req.query.path.join('/');
   const url = `${apiUrl}/uploads/${path}`;
 
+console.log('HERE =======> ', url);
+
   try {
     const response = await fetch(url);
     

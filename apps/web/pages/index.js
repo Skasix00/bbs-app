@@ -118,7 +118,7 @@ export default function Home() {
       <section className="feed">
         {feed.map(item => (
           <div key={item.id} className="card" onClick={() => setShowDetail(item)}>
-            <img src={item.url} alt="foto" />
+            <img src={ API + item.url} alt="foto" />
             <div className="nickname">@{item.nickname}</div>
             {item.message && (
               <div className="message">
