@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN turbo prune --scope=@skasiz00/bbs-${PROJECT} --docker
+RUN turbo prune --scope=@skasix00/bbs-${PROJECT} --docker
 
 
 # # #
@@ -34,7 +34,7 @@ RUN npm install
 
 # Build the project
 COPY --from=pruner /app/out/full/ .
-RUN turbo run build --filter=@skasiz00/bbs-${PROJECT}
+RUN turbo run build --filter=@skasix00/bbs-${PROJECT}
 
 
 # # #

@@ -1,5 +1,5 @@
 {
-  "name": "@skasiz00/bbs-web",
+  "name": "@skasix00/bbs-web",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev -p 3000",

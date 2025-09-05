@@ -27,7 +27,7 @@ WORKDIR /app
 COPY package.json ./
 COPY . .
 
-RUN turbo prune --scope=@skasiz00/bbs-${PROJECT} --docker
+RUN turbo prune --scope=@skasix00/bbs-${PROJECT} --docker
 
 
 # # # # # # # # #
@@ -49,7 +49,7 @@ RUN npm install
 
 # Build the project
 COPY --from=pruner /app/out/full/ .
-RUN turbo run build --filter=@skasiz00/bbs-${PROJECT}
+RUN turbo run build --filter=@skasix00/bbs-${PROJECT}
 
 
 # # # # # # # # #
@@ -71,4 +71,4 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/${PROJECT}/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/${PROJECT}/.next/static ./apps/${PROJECT}/.next/static
 
-CMD node /app/server.js
+CMD node /app/apps/${PROJECT}/server.js
