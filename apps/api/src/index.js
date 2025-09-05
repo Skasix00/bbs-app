@@ -69,19 +69,13 @@ app.post('/photos', async (req, reply) => {
   const { userId } = req.query;
   if (!userId) return reply.code(400).send({ error: 'userId required' });
 
-  let message = '';
-  let filePart;
+  const data = await request.file();
 
-  for await (const part of req.parts()) {
-    if (part.fieldname === 'message') {
-      message = await part.value;
-    }
-    if (part.file) {
-      filePart = part;
-    }
+  if (!data) {
+     return reply.code(400).send({ error: 'No file provided' });
   }
 
-  if (!filePart) return reply.code(400).send({ error: 'file missing' });
+  const fields = data.fields;
 
   const filename = `${Date.now()}-${filePart.filename}`;
   const filepath = path.join(UPLOADS_DIR, filename);
