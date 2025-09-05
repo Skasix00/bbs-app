@@ -14,6 +14,9 @@ RUN apk add --no-cache gettext
 # Copy the template
 COPY ./configs/nginx.conf /etc/nginx/nginx.conf.template
 
+# Create uploads directory for serving static files
+RUN mkdir -p /app/uploads
+
 # Render the template at build time
 RUN envsubst '${NGINX_SERVER_NAME}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 

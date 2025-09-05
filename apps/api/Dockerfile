@@ -41,10 +41,13 @@ RUN turbo run build --filter=@skasix00/bbs-${PROJECT}
 
 FROM base AS runner
 
-VOLUME /uploads
-
 WORKDIR /app
 
 COPY --from=builder /app .
+
+# Create uploads directory and set proper permissions
+RUN mkdir -p /app/uploads && chown -R node:node /app/uploads
+
+VOLUME /app/uploads
 
 CMD node apps/${PROJECT}/src/index.js

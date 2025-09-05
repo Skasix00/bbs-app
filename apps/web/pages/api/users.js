@@ -1,7 +1,7 @@
 // Jusi was here
 
 export default async function handler(req, res) {
-  const api = process.env.NODE_ENV == 'development' ? 'http://localhost:5050' : '/api';
+  const api = '/api';
   const url = `${api}/users`;
   if (req.method === 'GET') {
     const r = await fetch(url);

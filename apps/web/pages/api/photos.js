@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     res.setHeader('Allow', ['POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-  const apiUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:5050' : '/api';
+  const apiUrl = '/api';
   const userId = req.query.userId;
   const url = `${apiUrl}/photos?userId=${encodeURIComponent(userId)}`;
 
