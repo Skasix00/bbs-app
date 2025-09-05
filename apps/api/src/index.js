@@ -69,20 +69,21 @@ app.post('/photos', async (req, reply) => {
   const { userId } = req.query;
   if (!userId) return reply.code(400).send({ error: 'userId required' });
 
-  const data = await request.file();
+  const data = await req.file();
 
   if (!data) {
      return reply.code(400).send({ error: 'No file provided' });
   }
 
   const fields = data.fields;
+  const message = fields.message?.value || '';
 
-  const filename = `${Date.now()}-${filePart.filename}`;
+  const filename = `${Date.now()}-${data.filename}`;
   const filepath = path.join(UPLOADS_DIR, filename);
 
   await new Promise((resolve, reject) => {
     const ws = fs.createWriteStream(filepath);
-    filePart.file.pipe(ws);
+    data.file.pipe(ws);
     ws.on('finish', resolve);
     ws.on('error', reject);
   });
