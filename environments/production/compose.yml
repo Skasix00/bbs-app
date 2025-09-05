@@ -4,7 +4,7 @@ name: skasix00-bbs
 
 volumes:
   certbotdata:
-  uploads:
+  
 
 services:
   #
@@ -53,7 +53,8 @@ services:
     volumes:
       - ./letsencrypt:/etc/letsencrypt:ro
       - certbotdata:/var/www/certbot:ro
-      - uploads:/app/uploads:ro
+      - ./uploads:/app/uploads:ro
+      - ./uploads2:/app/apps/api/uploads:ro
     ports:
       - 80:80
       - 443:443
@@ -89,7 +90,8 @@ services:
         max-file: '1'
     volumes:
       - ./secrets:/secrets
-      - uploads:/app/uploads
+      - ./uploads:/app/uploads
+      - ./uploads2:/app/apps/api/uploads
     env_file:
       - ./secrets/.env
 
