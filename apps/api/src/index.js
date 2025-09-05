@@ -18,7 +18,11 @@ await app.register(cors, {
 });
 
 // --- Multipart (upload de ficheiros) ---
-await app.register(multipart);
+await app.register(multipart, {
+  limits: {
+    fileSize: 50 * 1024 * 1024,
+  }
+});
 
 // --- Uploads e ficheiros estáticos ---
 const UPLOADS_DIR = path.join(process.cwd(), 'uploads');
