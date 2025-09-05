@@ -41,7 +41,7 @@ RUN turbo run build --filter=@skasix00/bbs-${PROJECT}
 
 FROM base AS runner
 
-VOLUME /opt/app/uploads
+VOLUME /uploads
 
 WORKDIR /app
 
