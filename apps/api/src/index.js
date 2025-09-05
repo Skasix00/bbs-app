@@ -101,7 +101,7 @@ app.post('/photos', async (req, reply) => {
 });
 
 // --- Start server ---
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5050;
 app.listen({ port, host: '0.0.0.0' }, err => {
   if (err) throw err;
   app.log.info(`API listening on http://localhost:${port}`);
