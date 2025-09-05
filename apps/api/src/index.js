@@ -10,7 +10,7 @@ const app = Fastify({ logger: true });
 
 // --- CORS ---
 await app.register(cors, {
-  origin: '*', // Aceita todas as origens
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   exposedHeaders: ['Content-Disposition'],

@@ -36,11 +36,12 @@ RUN npm install
 COPY --from=pruner /app/out/full/ .
 RUN turbo run build --filter=@skasix00/bbs-${PROJECT}
 
-
 # # #
 # RUNNER STAGE
 
 FROM base AS runner
+
+VOLUME /opt/app/uploads
 
 WORKDIR /app
 

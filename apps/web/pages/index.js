@@ -10,7 +10,7 @@ export default function Home() {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
 
-  const [showDetail, setShowDetail] = useState(null); // modal p/ mensagem completa
+  const [showDetail, setShowDetail] = useState(null);
 
   const API = '/api';
 
