@@ -12,7 +12,7 @@ export default function Home() {
 
   const [showDetail, setShowDetail] = useState(null); // modal p/ mensagem completa
 
-  const API = process.env.NEXT_PUBLIC_API_URL || 'http://skaklaud.ddns.net/api';
+  const API = '/api';
 
   useEffect(() => {
     const saved = localStorage.getItem('bs-user');
