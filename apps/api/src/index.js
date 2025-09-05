@@ -21,7 +21,7 @@ await app.register(cors, {
 await app.register(multipart);
 
 // --- Uploads e ficheiros estáticos ---
-const UPLOADS_DIR = path.join(process.cwd(), 'uploads');
+const UPLOADS_DIR = process.env.NODE_ENV == 'development' ? path.join(process.cwd(), 'uploads') : '/app/uploads';
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
 // Serve a pasta de uploads
