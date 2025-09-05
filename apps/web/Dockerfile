@@ -27,7 +27,7 @@ WORKDIR /app
 COPY package.json ./
 COPY . .
 
-RUN turbo prune --scope=@tmlmobilidade/sae-${MODULE}-${PROJECT} --docker
+RUN turbo prune --scope=@skasiz00/bbs-${PROJECT} --docker
 
 
 # # # # # # # # #
