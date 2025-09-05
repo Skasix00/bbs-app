@@ -11,6 +11,7 @@ export default function Home() {
   const [message, setMessage] = useState('');
 
   const [showDetail, setShowDetail] = useState(null);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const API = process.env.NODE_ENV == 'development' ? 'http://localhost:5050' : '/api';
 
@@ -46,17 +47,34 @@ export default function Home() {
 
   const handleUpload = async () => {
     if (!file) return alert('Escolhe uma imagem');
-    const form = new FormData();
-    form.append('file', file);
-    form.append('message', message);
-    const res = await fetch(`${API}/photos?userId=${user.id}`, { method: 'POST', body: form });
-    if (!res.ok) {
-      console.error('Upload falhou:', await res.text());
+
+    setShowSpinner(true);
+    setShowModal(false);
+
+    const uploadPromise = (async () => {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('message', message);
+      const res = await fetch(`${API}/photos?userId=${user.id}`, { method: 'POST', body: form });
+      if (!res.ok) {
+        console.error('Upload falhou:', await res.text());
+        return { ok: false };
+      }
+      return { ok: true };
+    })();
+
+    const timerPromise = new Promise(resolve => setTimeout(resolve, 10000));
+
+    const [uploadResult] = await Promise.all([uploadPromise, timerPromise]);
+
+    setShowSpinner(false);
+
+    if (!uploadResult.ok) {
       return alert('Erro ao enviar imagem');
     }
+
     setFile(null);
     setMessage('');
-    setShowModal(false);
     loadFeed();
   };
 
@@ -157,6 +175,16 @@ export default function Home() {
             <div className="nickname">@{showDetail.nickname}</div>
             <div className="message-full">{showDetail.message}</div>
             <button className="close-btn" onClick={() => setShowDetail(null)}>Fechar</button>
+          </div>
+        </div>
+      )}
+
+      {/* Spinner modal */}
+      {showSpinner && (
+        <div className="modal-backdrop">
+          <div className="modal-content" style={{ alignItems: 'center', justifyContent: 'center', minHeight: 120 }}>
+            <div className="spinner" />
+            <div style={{ marginTop: 16 }}>A processar...</div>
           </div>
         </div>
       )}
@@ -290,6 +318,18 @@ export default function Home() {
           border-radius: 6px;
           font-size: 14px;
           cursor: pointer;
+        }
+        .spinner {
+          border: 6px solid #f3f3f3;
+          border-top: 6px solid #03a9f4;
+          border-radius: 50%;
+          width: 48px;
+          height: 48px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
     </div>
